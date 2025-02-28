@@ -1,0 +1,14 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="256px" height="256px" viewBox="-19.2 -19.2 230.40 230.40" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
+<g id="SVGRepo_bgCarrier" stroke-width="0">
+<rect x="-19.2" y="-19.2" width="230.40" height="230.40" rx="115.2" fill="#ffffff" strokewidth="0"/>
+</g>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.152"/>
+<g id="SVGRepo_iconCarrier">
+<path d="M0 0h192v192H0z" style="fill:none"/>
+<circle cx="96" cy="96" r="67" style="stroke:#8000ff;stroke-width:12px;stroke-miterlimit:10;fill:none"/>
+<path d="M106.84 103.05C112.93 99.37 117 92.69 117 85.06c0-11.6-9.4-21-21-21s-21 9.4-21 21c0 7.63 4.07 14.31 10.16 17.99L75 127.93h42l-10.16-24.88Z" style="stroke-linejoin:round;stroke:#8000ff;stroke-width:12px;fill:none"/>
+<path d="m22 22 26 26m96 96 26 26m-148 0 26-26m96-96 26-26" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke:#8000ff;stroke-width:12px"/>
+</g>
+</svg>

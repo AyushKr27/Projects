@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Your Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1{
+            color: white;
+            background-color: red;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 4px;
+        }
+        h2 {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 4px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],  
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgb(204, 204, 204);
+            border-radius: 4px;
+            box-sizing: border-box;  
+
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: rgb(76, 175, 80);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        button[type="submit"]:hover {
+            background-color: rgb(69, 160, 73);
+        }
+    </style>
+</head>
+<body>   
+    <div><h1>Job search.com</h1>
+    <h2>Create Your Account</h2>
+    <form>
+        <h5 style="color: red;">* Required Information</h5>
+        <fieldset>
+            <legend>Basic Information</legend>
+            <label for="email">Email:<span style="color: red;">*</span></label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:<span style="color: red;">*</span></label>
+            <input   
+ type="password" id="password" name="password" required>
+
+            <label for="retypePassword">Retype Password:<span style="color: red;">*</span></label>
+            <input type="password" id="retypePassword" name="retypePassword" required>   
+
+
+            <label for="firstName">First Name:<span style="color: red;">*</span></label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name:<span style="color: red;">*</span></label>
+            <input type="text" id="lastName"  
+ name="lastName" required>
+
+            <label for="phoneNumber">Phone 
+ Number:<span style="color: red;">*</span></label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>   
+
+
+            <label for="address">Address:<span style="color: red;">*</span></label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="city">City:<span style="color: red;">*</span></label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="province">Province:<span style="color: red;">*</span></label> 
+
+            <input type="text" id="province" name="province"   
+ value="Alberta" disabled>
+
+            <label for="country">Country:<span style="color: red;">*</span></label>
+            <input type="text" id="country" name="country" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Education</legend>
+            <label for="school">School:<span style="color: red;">*</span></label>
+            <input type="text" id="school" name="school">
+
+            <label for="program">Program:<span style="color: red;">*</span></label>
+            <input type="text" id="program" name="program">
+
+            <label for="educationLevel">Education Level:<span style="color: red;">*</span></label>
+            <select id="educationLevel" name="educationLevel">
+                <option value="graduated">Graduated</option>
+                <option value="currentEnrolled">Current Enrolled</option>
+                <option value="didNotGraduate">Did Not Graduate</option>
+            </select>
+
+            <label for="graduationDate">Graduation Date:</label>
+            <input type="date" id="graduationDate" name="graduationDate">
+        </fieldset>
+
+        <fieldset>
+            <legend>Work Experience</legend>
+            <label for="employer">Employer:</label>
+            <input type="text" id="employer" name="employer">
+
+            <label for="jobTitle">Job Title:</label>
+            <input type="text" id="jobTitle" name="jobTitle">
+
+            <label for="jobDuty">Job Duty:</label>
+            <input type="text" id="jobDuty" name="jobDuty">
+
+            <label for="workedYear">Worked Year:</label>
+            <input type="number" id="workedYear" name="workedYear" min="0">
+        </fieldset>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
