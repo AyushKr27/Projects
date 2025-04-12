@@ -2,14 +2,14 @@ import React from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react' 
 const Manager = () => {
   const ref = useRef()
   const passwordref = useRef()
   const [form, setform] = useState({ site: "", username: "", password: "" })
   const [passwordarray, setpasswordarray] = useState([])
   const getpassword=async() => {
-    let req= await fetch("http://localhost:5173/")
+    let req= await fetch("http://localhost:5173")
     let passwords = await req.json()
     setpasswordarray(passwords)
     console.log(passwords)
@@ -47,9 +47,9 @@ const Manager = () => {
   }
   const savepassword = async() => {
     if(form.site.length >3 && form.username.length >3 && form.password.length >3){
-      await fetch("http://localhost:5173/",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:form.id})})
+      await fetch("http://localhost:5173",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:form.id})})
     setpasswordarray([...passwordarray, {...form,id:uuidv4()}])
-    await fetch("http://localhost:5173/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...form,id:uuidv4()})})
+    await fetch("http://localhost:5173",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...form,id:uuidv4()})})
     setform({ site: "", username: "", password: "" })
     toast('Password saved successfully!', {
       position: "top-center",
@@ -82,7 +82,7 @@ const Manager = () => {
     let c=confirm("Do you really want to delete this saved password?")
     if(c){
     setpasswordarray(passwordarray.filter(item=>item.id!==id))
-    let res=await fetch("http://localhost:5173/",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})})
+    let res=await fetch("http://localhost:5173",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})})
     toast('Password deleted successfully!', {
       position: "top-center",
       autoClose: 5000,
