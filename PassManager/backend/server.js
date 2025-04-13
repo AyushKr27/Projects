@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const dotenv=require('dotenv')
 const bodyparser=require('body-parser')
 const {MongoClient} =require('mongodb')
@@ -21,14 +21,14 @@ app.use(cors({
 client.connect()
 
 //getting all the passwords
-app.get('/', async(req, res) => {
+app.get('/api/passwords', async(req, res) => {
     const db=client.db(dbname)
     const collection = db.collection('Passwords');
     const findResult = await collection.find({}).toArray();
   res.json(findResult)
 }) 
 //save password
-app.post('/', async(req, res) => {
+app.post('/api/passwords', async(req, res) => {
   const password=req.body 
   const db=client.db(dbname)
     const collection = db.collection('Passwords');
@@ -36,7 +36,7 @@ app.post('/', async(req, res) => {
   res.send({success:true,result:findResult})
 }) 
 //delete a password
-app.delete('/', async(req, res) => {
+app.delete('/api/passwords', async(req, res) => {
   const password=req.body 
   const db=client.db(dbname)
     const collection = db.collection('Passwords');
