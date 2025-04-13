@@ -15,7 +15,9 @@ const client=new MongoClient(url)
 const dbname='PasswordManager'
 
 app.use(bodyparser.json())
-app.use(cors())
+app.use(cors({
+  origin: "https://projects-pearl-sigma.vercel.app",
+}));
 client.connect()
 
 //getting all the passwords
