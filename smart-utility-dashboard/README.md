@@ -26,7 +26,7 @@ A robust, full-stack AI-powered utility dashboard leveraging **React** for the f
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/smart-utility-dashboard.git
+    git clone https://github.com/AyushKr27/smart-utility-dashboard.git
     cd smart-utility-dashboard
     ```
 
