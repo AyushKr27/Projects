@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bookify - Cart</title>
+  <link rel="stylesheet" href="cart.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Bookify</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><button id="darkToggle">🌓</button></li>
+        <li><button id="loginBtn">Login</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="cart-section">
+    <h2>Your Shopping Cart</h2>
+    <div class="cart-container">
+      <div class="cart-items">
+        <!-- Example cart item -->
+        <div class="cart-item">
+          <img src="book1.jpg" alt="Book title" />
+          <div class="cart-item-details">
+            <h3>Book Title One</h3>
+            <p class="author">Author Name</p>
+            <p class="price">$15.99</p>
+          </div>
+          <div class="qty-wrapper">
+            <label for="qty1">Qty:</label>
+            <input type="number" id="qty1" name="qty1" min="1" value="1" />
+          </div>
+          <button class="remove-btn">Remove</button>
+        </div>
+        <!-- More cart items can be added dynamically -->
+      </div>
+
+      <div class="cart-summary">
+        <p>Total: <span id="cart-total">$15.99</span></p>
+        <button id="checkoutBtn">Checkout</button>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+
+  <script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Non-Fiction Books - Bookify</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Bookify</div>
+    <nav>
+      <input type="text" id="searchNonFiction" placeholder="Search non-fiction books..." />
+      <a href="index.html">Home</a>
+      <ul>
+        <li><a href="fiction.html">Fiction</a></li>
+        <li><a href="nonfiction.html">Non-Fiction</a></li>
+        <li><a href="children.html">Children</a></li>
+        <li><a href="bestsellers.html">Bestsellers</a></li>
+      </ul>
+      <button id="darkToggle">🌙</button>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Non-Fiction Books</h1>
+    <div class="book-list">
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10523965-L.jpg" alt="Sapiens" />
+        <h3>Sapiens</h3>
+        <p>by Yuval Noah Harari</p>
+        <button class="add-to-cart-btn" data-title="Sapiens" data-author="Yuval Noah Harari">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10958390-L.jpg" alt="Educated" />
+        <h3>Educated</h3>
+        <p>by Tara Westover</p>
+        <button class="add-to-cart-btn" data-title="Educated" data-author="Tara Westover">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10960600-L.jpg" alt="Becoming" />
+        <h3>Becoming</h3>
+        <p>by Michelle Obama</p>
+        <button class="add-to-cart-btn" data-title="Becoming" data-author="Michelle Obama">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10410518-L.jpg" alt="Atomic Habits" />
+        <h3>Atomic Habits</h3>
+        <p>by James Clear</p>
+        <button class="add-to-cart-btn" data-title="Atomic Habits" data-author="James Clear">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10960675-L.jpg" alt="Can't Hurt Me" />
+        <h3>Can't Hurt Me</h3>
+        <p>by David Goggins</p>
+        <button class="add-to-cart-btn" data-title="Can't Hurt Me" data-author="David Goggins">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10825290-L.jpg" alt="The Body" />
+        <h3>The Body</h3>
+        <p>by Bill Bryson</p>
+        <button class="add-to-cart-btn" data-title="The Body" data-author="Bill Bryson">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10271438-L.jpg" alt="Born a Crime" />
+        <h3>Born a Crime</h3>
+        <p>by Trevor Noah</p>
+        <button class="add-to-cart-btn" data-title="Born a Crime" data-author="Trevor Noah">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10709262-L.jpg" alt="The Splendid and the Vile" />
+        <h3>The Splendid and the Vile</h3>
+        <p>by Erik Larson</p>
+        <button class="add-to-cart-btn" data-title="The Splendid and the Vile" data-author="Erik Larson">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/11110825-L.jpg" alt="Greenlights" />
+        <h3>Greenlights</h3>
+        <p>by Matthew McConaughey</p>
+        <button class="add-to-cart-btn" data-title="Greenlights" data-author="Matthew McConaughey">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/10780341-L.jpg" alt="Untamed" />
+        <h3>Untamed</h3>
+        <p>by Glennon Doyle</p>
+        <button class="add-to-cart-btn" data-title="Untamed" data-author="Glennon Doyle">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/11592283-L.jpg" alt="The Light We Carry" />
+        <h3>The Light We Carry</h3>
+        <p>by Michelle Obama</p>
+        <button class="add-to-cart-btn" data-title="The Light We Carry" data-author="Michelle Obama">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://covers.openlibrary.org/b/id/11527890-L.jpg" alt="Outliers" />
+        <h3>Outliers</h3>
+        <p>by Malcolm Gladwell</p>
+        <button class="add-to-cart-btn" data-title="Outliers" data-author="Malcolm Gladwell">Add to Cart</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Dark mode toggle
+    document.getElementById("darkToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+
+    const searchInput = document.getElementById('searchNonFiction');
+    const bookCards = document.querySelectorAll('.book-card');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      bookCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const author = card.querySelector('p').textContent.toLowerCase();
+        card.style.display = (title.includes(query) || author.includes(query)) ? 'block' : 'none';
+      });
+    });
+
+    // Add random prices and Add to Cart functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      bookCards.forEach(card => {
+        const minPrice = 199;
+        const maxPrice = 999;
+        const price = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+
+        const priceTag = document.createElement("div");
+        priceTag.className = "price";
+        priceTag.textContent = `₹${price}`;
+        card.appendChild(priceTag);
+
+        const button = card.querySelector(".add-to-cart-btn");
+        if (button) {
+          button.setAttribute("data-price", price);
+          button.addEventListener("click", () => {
+            const title = button.getAttribute("data-title");
+            const author = button.getAttribute("data-author");
+            addToCart(title, author, price);
+          });
+        }
+      });
+    });
+
+    function addToCart(title, author, price) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ title, author, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`Added "${title}" to cart for ₹${price}`);
+    }
+  </script>
+</body>
+</html>

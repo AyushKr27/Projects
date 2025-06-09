@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookify</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("lqcsPJ0Op8BVhBsZG");
+    })();
+  </script>
+ <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+</head>
+<body></body>
+  <header>
+    <div class="logo">Bookify</div>
+    <nav>
+      <input type="text" id="search" placeholder="Search books..." />
+      <ul>
+        <li><a href="fiction.html">Fiction</a></li>
+        <li><a href="nonfiction.html">Non-Fiction</a></li>
+        <li><a href="children.html">Children</a></li>
+        <li><a href="bestsellers.html">Bestsellers</a></li>
+      <li class="cart-icon-container">
+  <a href="cart.html" aria-label="Cart">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" style="display: none;">0</span>
+  </a>
+</li>
+      </ul>
+      <button id="darkToggle" aria-label="Toggle Dark Mode">🌙</button>
+      <a id="loginBtn" href="login.html" class="login-link">Login</a>
+    </nav>
+  </header>
+  <main>
+    <section class="carousel">
+      <div class="slide active">
+        <img src="library.jpg" alt="Reading" />
+        <div class="caption">
+          <h1>Explore a World of Stories</h1>
+          <p>Dive into our vast collection of books across genres and authors.</p>
+          <button>Shop Now</button>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="library1.jpg" alt="Stacked Books" />
+        <div class="caption">
+          <h1>Discover New Literary Horizons</h1>
+          <p>Stay up-to-date with the latest releases and trending titles.</p>
+          <button>View New Releases</button>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="library2.jpg" alt="Library" />
+        <div class="caption">
+          <h1>Find Your Next Favorite Book</h1>
+          <p>Browse our catalog and discover hidden gems.</p>
+          <button>Explore Genres</button>
+        </div>
+      </div>
+    </section>
+    <section class="collections">
+      <h2>Browse by Collections</h2>
+      <div class="collection-list">
+        <div class="collection-card">
+          <h3>New Arrivals</h3>
+          <p>Fresh off the press—explore the latest releases.</p>
+        </div>
+        <div class="collection-card">
+          <h3>Editor's Picks</h3>
+          <p>Hand-picked selections by our editorial team.</p>
+        </div>
+        <div class="collection-card">
+          <h3>Award Winners</h3>
+          <p>Books that have earned critical acclaim and awards.</p>
+        </div>
+      </div>
+    </section>
+    <section class="new-arrivals">
+      <h2>New Arrivals</h2>
+      <div class="book-list">
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8231856-L.jpg" alt="The Midnight Library" />
+          <h3>The Midnight Library</h3>
+          <p>by Matt Haig</p>
+          <button class="add-to-cart-btn" data-title="The Midnight Library" data-author="Matt Haig">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8319256-L.jpg" alt="Project Hail Mary" />
+          <h3>Project Hail Mary</h3>
+          <p>by Andy Weir</p>
+          <button class="add-to-cart-btn" data-title="Project Hail Mary" data-author="Andy Weir">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8674387-L.jpg" alt="Klara and the Sun" />
+          <h3>Klara and the Sun</h3>
+          <p>by Kazuo Ishiguro</p>
+          <button class="add-to-cart-btn" data-title="Klara and the Sun" data-author="Kazuo Ishiguro">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/10534096-L.jpg" alt="The Four Winds" />
+          <h3>The Four Winds</h3>
+          <p>by Kristin Hannah</p>
+          <button class="add-to-cart-btn" data-title="The Four Winds" data-author="Kristin Hannah">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <section class="editors-picks">
+      <h2>Editor's Picks</h2>
+      <div class="book-list">
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8281996-L.jpg" alt="Where the Crawdads Sing" />
+          <h3>Where the Crawdads Sing</h3>
+          <p>by Delia Owens</p>
+          <button class="add-to-cart-btn" data-title="Where the Crawdads Sing" data-author="Delia Owens">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8100921-L.jpg" alt="Becoming" />
+          <h3>Becoming</h3>
+          <p>by Michelle Obama</p>
+          <button class="add-to-cart-btn" data-title="Becoming" data-author="Michelle Obama">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8235112-L.jpg" alt="Educated" />
+          <h3>Educated</h3>
+          <p>by Tara Westover</p>
+          <button class="add-to-cart-btn" data-title="Educated" data-author="Tara Westover">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/9255641-L.jpg" alt="The Night Circus" />
+          <h3>The Night Circus</h3>
+          <p>by Erin Morgenstern</p>
+          <button class="add-to-cart-btn" data-title="The Night Circus" data-author="Erin Morgenstern">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <section class="award-winners">
+      <h2>Award Winners</h2>
+      <div class="book-list">
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8237413-L.jpg" alt="The Testaments" />
+          <h3>The Testaments</h3>
+          <p>by Margaret Atwood</p>
+          <button class="add-to-cart-btn" data-title="The Testaments" data-author="Margaret Atwood">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8389174-L.jpg" alt="The Overstory" />
+          <h3>The Overstory</h3>
+          <p>by Richard Powers</p>
+          <button class="add-to-cart-btn" data-title="The Overstory" data-author="Richard Powers">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8226198-L.jpg" alt="Lincoln in the Bardo" />
+          <h3>Lincoln in the Bardo</h3>
+          <p>by George Saunders</p>
+          <button class="add-to-cart-btn" data-title="Lincoln in the Bardo" data-author="George Saunders">Add to Cart</button>
+        </div>
+        <div class="book-card">
+          <img src="https://covers.openlibrary.org/b/id/8231825-L.jpg" alt="A Little Life" />
+          <h3>A Little Life</h3>
+          <p>by Hanya Yanagihara</p>
+          <button class="add-to-cart-btn" data-title="A Little Life" data-author="Hanya Yanagihara">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <section class="contact-section">
+      <h2>Contact Us</h2>
+      <form class="contact-form" id="contactForm">
+        <label for="contact-name">Name</label>
+        <input type="text" id="contact-name" name="name" required />
+        <label for="contact-email">Email</label>
+        <input type="email" id="contact-email" name="email" required />
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" required minlength="6" />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5fex4R8Mz0zDf29Xdj6RcoeLy6NbskwQ",
+      authDomain: "online-book-store-eb3c0.firebaseapp.com",
+      projectId: "online-book-store-eb3c0",
+      appId: "1:40336432467:web:fe98c09311f93f990a95a6"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const loginBtn = document.getElementById("loginBtn");
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginBtn.textContent = `Logout (${user.email})`;
+        loginBtn.onclick = () => {
+          signOut(auth).then(() => {
+            alert("Logged out.");
+            window.location.reload();
+          });
+        };
+      } else {
+        loginBtn.textContent = "Login";
+        loginBtn.onclick = () => {
+          window.location.href = "login.html";
+        };
+      }
+    });
+  </script>
+  <script>
+  const status = new URLSearchParams(window.location.search).get("status");
+
+  if (status === "confirmed") {
+    alert("✅ Order Confirmed");
+  } 
+  else if (status === "rejected") {
+    alert("❌ Payment Failed");
+  }
+</script>
+</body>
+</html>

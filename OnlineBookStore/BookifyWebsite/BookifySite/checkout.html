@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookify - Checkout</title>
+  <link rel="stylesheet" href="checkout.css" />
+</head>
+<body>
+  <header class="navbar">
+    <h2 class="logo">Bookify</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="collections.html">Collections</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main class="checkout-container">
+    <h2 class="checkout-title">Checkout</h2>
+
+    <div class="checkout-card">
+      <h3>Shipping Information</h3>
+      <form id="checkout-form">
+        <input type="text" id="fullName" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="text" id="address" placeholder="Shipping Address" required>
+        <input type="text" id="city" placeholder="City" required>
+        <input type="text" id="postal" placeholder="Postal Code" required>
+        <div class="checkout-button-box">
+          <button type="submit" class="checkout-btn">Place Order</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="checkout-card">
+      <h3>Order Summary</h3>
+      <div class="order-summary">
+        <div class="order-summary-content">
+          <img src="images/klara-and-the-sun.jpg" alt="Klara and the Sun" class="book-image">
+          <div class="book-details">
+            <p>Book: <strong>Klara and the Sun</strong></p>
+            <p>Qty: 1</p>
+            <p>Price: ₹268</p>
+          </div>
+        </div>
+        <hr>
+        <p class="order-total">Total: <strong>₹268.00</strong></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("checkout-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Get values
+      const fullName = document.getElementById("fullName").value;
+      const email = document.getElementById("email").value;
+      const address = document.getElementById("address").value;
+      const city = document.getElementById("city").value;
+      const postal = document.getElementById("postal").value;
+
+      // Store in localStorage
+      localStorage.setItem("name", fullName);
+      localStorage.setItem("email", email);
+      localStorage.setItem("address", address);
+      localStorage.setItem("city", city);
+      localStorage.setItem("postal", postal);
+
+      // Redirect to payment page
+      window.location.href = "payment.html";
+    });
+  </script>
+</body>
+</html>

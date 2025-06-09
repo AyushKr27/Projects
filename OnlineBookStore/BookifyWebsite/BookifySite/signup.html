@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - Bookify</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Create a Bookify Account</h2>
+    <form id="signupForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" required minlength="6" />
+      <button type="submit">Sign Up</button>
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5fex4R8Mz0zDf29Xdj6RcoeLy6NbskwQ",
+      authDomain: "online-book-store-eb3c0.firebaseapp.com",
+      projectId: "online-book-store-eb3c0",
+      appId: "1:40336432467:web:fe98c09311f93f990a95a6"
+    };
+
+    // Initialize Firebase app and auth
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Handle form submission
+    const signupForm = document.getElementById("signupForm");
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+          alert("Signup successful!");
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          alert("Signup failed: " + error.message);
+        });
+    });
+    
+  </script>
+  
+  <script src="script.js"></script>
+</body>
+</html>

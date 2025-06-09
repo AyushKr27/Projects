@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookify - Payment</title>
+  <link rel="stylesheet" href="payment.css" />
+
+  <!-- EmailJS Browser SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init("lqcsPJ0Op8BVhBsZG"); // Replace with your actual EmailJS public key
+  </script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCf_nnNInWMF06sqkAeQeWC4qfEJSGtEvg",
+      authDomain: "paymentconfirmation-d692d.firebaseapp.com",
+      databaseURL: "https://paymentconfirmation-d692d-default-rtdb.firebaseio.com",
+      projectId: "paymentconfirmation-d692d",
+      storageBucket: "paymentconfirmation-d692d.appspot.com",
+      messagingSenderId: "276253626942",
+      appId: "1:276253626942:web:3323cf97105fd3f18cf76f",
+      measurementId: "G-67WRJHS8VV"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+</head>
+<body>
+  <header class="navbar">
+    <h2 class="logo">Bookify</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="collections.html">Collections</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main class="payment-container">
+    <h2>Complete Your Payment</h2>
+    <div class="payment-card">
+      <p>Scan the QR code below to pay via UPI</p>
+      <img src="qr.jpg" alt="UPI QR Code" class="qr-code"/>
+      <p class="upi-id">UPI ID: <strong>9661879710@apl</strong></p>
+      <p>Amount: <strong>₹268.00</strong></p>
+      <button class="confirm-btn" id="paidBtn">I've Paid</button>
+    </div>
+  </main>
+
+  <!-- Confirm payment logic -->
+  <script>
+    document.getElementById("paidBtn").addEventListener("click", function () {
+      const confirmUrl = `https://your-project-id.web.app/confirm.html?status=confirmed`;
+      const rejectUrl = `https://your-project-id.web.app/confirm.html?status=rejected`;
+
+      const templateParams = {
+        to_email: "ayush.project27@gmail.com",
+        message: `
+          <p><strong>Bookify Payment Confirmation Request</strong></p>
+          <p>The user has attempted to make a payment. Please take action:</p>
+          <a href="${confirmUrl}" style="background-color:green;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;">✅ Confirm</a>
+          &nbsp;
+          <a href="${rejectUrl}" style="background-color:red;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;">❌ Reject</a>
+        `
+      };
+
+      emailjs.send("service_ucb2ulj", "template_c4yrcif", templateParams)
+        .then(() => {
+          alert("Payment verification email sent to the seller.");
+        })
+        .catch((error) => {
+          console.error("Email failed:", error);
+          alert("Failed to send verification email.");
+        });
+    });
+  </script>
+
+  <!-- Status check -->
+  <script>
+    const status = new URLSearchParams(window.location.search).get("status");
+    if (status === "confirmed") {
+      alert("✅ Order Confirmed");
+    } else if (status === "rejected") {
+      alert("❌ Payment Failed");
+    }
+  </script>
+</body>
+</html>
