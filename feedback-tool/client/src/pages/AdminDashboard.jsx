@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from '../utils/api';
 import io from 'socket.io-client';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -15,7 +15,8 @@ import './AdminDashboard.css';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const socket = io('http://localhost:5000');
+// ✅ Use dynamic backend URL for socket connection
+const socket = io(import.meta.env.VITE_API_URL.replace('/api', ''));
 
 const AdminDashboard = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -29,8 +30,7 @@ const AdminDashboard = () => {
 
   const fetchFeedbacks = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/feedback', {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await API.get('/feedback', {
         params: { sortBy, filterRating },
       });
       setFeedbacks(res.data);
@@ -41,9 +41,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/feedback/stats', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await API.get('/feedback/stats');
       setStats(res.data);
     } catch (err) {
       console.error('Failed to fetch stats:', err);
@@ -72,10 +70,8 @@ const AdminDashboard = () => {
         [f.name, f.email, f.rating, `"${f.feedback}"`, new Date(f.createdAt).toLocaleString()]
       ),
     ];
-
     const blob = new Blob([csvRows.map(r => r.join(',')).join('\n')], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-
     const a = document.createElement('a');
     a.href = url;
     a.download = 'feedbacks.csv';
@@ -85,9 +81,7 @@ const AdminDashboard = () => {
   const deleteAllFeedbacks = async () => {
     if (!window.confirm('Are you sure you want to delete all feedbacks?')) return;
     try {
-      await axios.delete('http://localhost:5000/api/feedback', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await API.delete('/feedback');
       fetchFeedbacks();
       fetchStats();
     } catch (err) {

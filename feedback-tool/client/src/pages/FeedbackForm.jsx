@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import API from '../utils/api';
 import './FeedbackForm.css';
 
 const FeedbackForm = () => {
@@ -32,7 +32,7 @@ const FeedbackForm = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/feedback', formData);
+      await API.post('/feedback', formData); // ✅ Dynamic base URL
       setSubmitted(true);
       setError('');
     } catch (err) {
@@ -100,5 +100,4 @@ const FeedbackForm = () => {
     </div>
   );
 };
-
 export default FeedbackForm;
