@@ -32,7 +32,7 @@ const FeedbackForm = () => {
     }
 
     try {
-      await API.post('/feedback', formData); // ✅ Dynamic base URL
+      await API.post('/feedback', formData); 
       setSubmitted(true);
       setError('');
     } catch (err) {

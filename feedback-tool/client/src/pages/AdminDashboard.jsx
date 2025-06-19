@@ -14,10 +14,7 @@ import {
 import './AdminDashboard.css';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-// ✅ Use dynamic backend URL for socket connection
 const socket = io(import.meta.env.VITE_API_URL.replace('/api', ''));
-
 const AdminDashboard = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [stats, setStats] = useState({ total: 0, average: 0 });
