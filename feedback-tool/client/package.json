@@ -1,5 +1,4 @@
 {
-  "homepage": "./",
   "name": "client",
   "private": true,
   "version": "0.0.0",
@@ -11,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
+    "char": "^1.0.2",
+    "chart.js": "^4.5.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -25,8 +29,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^4.1.8",
+    "postcss": "^8.5.5",
+    "tailwindcss": "^4.1.10",
     "vite": "^6.3.5"
   }
 }
