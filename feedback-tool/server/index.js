@@ -15,9 +15,11 @@ const io = new Server(server, {
 });
 
 app.use(cors({
-  origin: ['https://feedback-tool-frontend.onrender.com'],
-  methods: ['GET', 'POST', 'DELETE'],
+  origin: ['https://projects-fn5f.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
+
 
 app.use(json());
 
