@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // ✅ Use env variable
+  baseURL: 'https://projects-pk2b.onrender.com', // hardcoded temporarily
 });
 
 API.interceptors.request.use((config) => {
