@@ -32,7 +32,8 @@ const FeedbackForm = () => {
     }
 
     try {
-      await API.post('/feedback', formData); 
+await API.post('/api/feedback', formData); // ✅ Correct
+ 
       setSubmitted(true);
       setError('');
     } catch (err) {
