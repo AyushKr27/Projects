@@ -14,7 +14,7 @@ const server = createServer(app);
 
 const allowedOrigins = [
   'https://feedback-tool-frontend.onrender.com',
-  'https://projects-fn5f.vercel.app',
+  'https://feedbacktool-flame.vercel.app/',
 ];
 
 app.use(cors({
