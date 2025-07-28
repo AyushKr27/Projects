@@ -1,6 +1,6 @@
-# Project SmartGlass
+# Project Mentra
 
-A collaborative, AI-powered platform for interactive learning, document sharing, live Q&A, quizzes, and analytics. SmartGlass integrates real-time features, document management, and advanced AI models to enhance educational and collaborative experiences.
+A collaborative, AI-powered platform for interactive learning, document sharing, live Q&A, quizzes, and analytics. Mentra integrates real-time features, document management, and advanced AI models to enhance educational and collaborative experiences.
 
 ## 🚀 Features
 - **AI Model Integration:** Math solving, document embedding, and intelligent summarization.
@@ -12,7 +12,7 @@ A collaborative, AI-powered platform for interactive learning, document sharing,
 
 ## 🗂️ Project Structure
 ```
-Project-SmartGlass/
+Project-Mentra/
 │
 ├── AI-Model/           # Python backend for AI features (math solver, embeddings, etc.)
 │   ├── models/         # Pydantic schemas for AI models
@@ -54,8 +54,8 @@ Project-SmartGlass/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/Project-SmartGlass.git
-cd Project-SmartGlass
+git clone https://github.com/your-username/Project-Mentra.git
+cd Project-Mentra
 ```
 
 ### 2. Setup the AI Model (Python)
@@ -99,7 +99,7 @@ This project is licensed under the MIT License.
 
 ## 📬 Contact
 For questions, suggestions, or support:
-- **GitHub Issues:** [Open an issue](https://github.com/your-username/Project-SmartGlass/issues)
+- **GitHub Issues:** [Open an issue](https://github.com/your-username/Project-Mentra/issues)
 ---
 
 *Empowering collaborative learning with AI and real-time interactivity.* 
