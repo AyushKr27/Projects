@@ -107,7 +107,7 @@ export default function ChatListPage() {
               ))
             )}
           </div>
-          <div className="text-xs text-gray-600 text-center py-2 border-t border-gray-800">SmartGlass &copy; {new Date().getFullYear()}</div>
+          <div className="text-xs text-gray-600 text-center py-2 border-t border-gray-800">Mentra &copy; {new Date().getFullYear()}</div>
         </aside>
         {/* Overlay for mobile sidebar */}
         {sidebarOpen && (
@@ -125,7 +125,7 @@ export default function ChatListPage() {
               >
                 <Menu />
               </button>
-              <span className="text-2xl logo-font font-bold text-indigo-200 tracking-tight">SmartGlass AI</span>
+              <span className="text-2xl logo-font font-bold text-indigo-200 tracking-tight">Mentra AI</span>
             </div>
             <Link className="text-lg font-semibold text-indigo-300 hover:underline" to="/dashboard">Home</Link>
           </header>

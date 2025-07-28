@@ -46,7 +46,7 @@ export default function Navbar() {
               <span className="text-xl">🚀</span>
             </div>
             <span className="text-2xl font-bold text-white logo-font">
-              SmartGlass
+              Mentra
             </span>
           </Link>
 
