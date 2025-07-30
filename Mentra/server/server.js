@@ -19,7 +19,7 @@ const app = express();
 const server = createServer(app);
 
 app.use(cors({
-  origin: [`${process.env.CLIENT_URL}`,"https://mentraapp.vercel.app/"],
+  origin: [`${process.env.CLIENT_URL}`,"https://mentra-r0yielge3-ayushkr27s-projects.vercel.app/"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
