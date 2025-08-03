@@ -143,8 +143,8 @@ Runs at [http://localhost:3000](http://localhost:3000).
 
 ### Backend
 
-- [Gin Web Framework](https://github.com/gin-gonic/gin)
-- [GORM ORM](https://gorm.io/gorm)
+- [Gin Web Framework](https://github.com/gin-gonic/gin/)
+- [GORM ORM](https://github.com/jinzhu/gorm/)
 - Middleware for authentication/authorization
 
 ### Frontend
