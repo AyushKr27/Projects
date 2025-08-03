@@ -93,9 +93,9 @@ Runs at [http://localhost:8080](http://localhost:8080) by default.
 ### Frontend (React)
 
 ```bash
-cd ../frontend
+cd ../shopping-cart-frontend
 npm install
-npm start
+npm run dev
 ```
 Runs at [http://localhost:3000](http://localhost:3000).
 
