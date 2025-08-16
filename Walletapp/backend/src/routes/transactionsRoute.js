@@ -8,9 +8,10 @@ import {
 
 const router = express.Router();
 
+// Order matters: static routes before dynamic ones
+router.get("/summary/:userId", getSummaryByUserId);
 router.get("/:userId", getTransactionsByUserId);
 router.post("/", createTransaction);
 router.delete("/:id", deleteTransaction);
-router.get("/summary/:userId", getSummaryByUserId);
 
 export default router;
