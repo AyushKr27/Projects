@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";   // <-- ADD THIS
 import { initDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 
@@ -16,11 +17,12 @@ if (process.env.NODE_ENV === "production") job.start();
 app.use(rateLimiter);
 app.use(express.json());
 
-// our custom simple middleware
-// app.use((req, res, next) => {
-//   console.log("Hey we hit a req, the method is", req.method);
-//   next();
-// });
+// ✅ Enable CORS
+app.use(cors({
+  origin: "*",   // allow all for now, you can restrict later
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 const PORT = process.env.PORT || 5001;
 
