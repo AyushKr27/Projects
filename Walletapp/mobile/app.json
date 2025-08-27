@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
@@ -17,7 +17,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.ayush2701.mobile"
+      "package": "com.ayush2701.mobile",
+      "jsEngine": "jsc"
     },
     "web": {
       "bundler": "metro",
