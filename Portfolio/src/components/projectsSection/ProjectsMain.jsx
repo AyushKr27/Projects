@@ -23,7 +23,7 @@ const projects = [
     year: "June 2025",
     align: "right",
     image: "../../images/project3.png",
-    link: "https://mentra-r0yielge3-ayushkr27s-projects.vercel.app/",
+    link: "https://mentraapp.vercel.app/",
   },
 ];
 
