@@ -5,11 +5,11 @@ import { fadeIn } from "../../framerMotion/variants";
 
 const projects = [
   {
-    name: "PassManageR",
-    year: "June 2024",
+    name: "Mentra",
+    year: "June 2025",
     align: "right",
-    image: "../../images/project1.png",
-    link: "https://projects-pearl-sigma.vercel.app/",
+    image: "../../images/project3.png",
+    link: "https://mentraapp.vercel.app/",
   },
   {
     name: "Chatify",
@@ -19,11 +19,11 @@ const projects = [
     link: "https://chatify-poty.onrender.com",
   },
   {
-    name: "Mentra",
-    year: "June 2025",
+    name: "PassManageR",
+    year: "June 2024",
     align: "right",
-    image: "../../images/project3.png",
-    link: "https://mentraapp.vercel.app/",
+    image: "../../images/project1.png",
+    link: "https://projects-pearl-sigma.vercel.app/",
   },
 ];
 
