@@ -1,17 +1,25 @@
-module.exports = function (api) {
+export default function (api) {
   api.cache(true);
   return {
     presets: ["babel-preset-expo"],
     plugins: [
+      // 👇 MUST be first for react-native-reanimated to work properly
+      "react-native-reanimated/plugin",
       [
         "module-resolver",
         {
           alias: {
-            "@": "./", // now "@/components" points to "project-root/components"
+            "@": "./",               // Root
+            "@components": "./components",
+            "@assets": "./assets",
+            "@hooks": "./hooks",
+            "@lib": "./lib",
+            "@screens": "./app",
           },
         },
       ],
-      "expo-router/babel", // keep this for expo-router
+      // 👇 Keep this for expo-router
+      "expo-router/babel",
     ],
   };
 };
