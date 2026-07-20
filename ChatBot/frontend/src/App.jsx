@@ -1,261 +1,271 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import io from 'socket.io-client';
-import ChatWindow from './components/ChatWindow';
-import Sidebar from './components/Sidebar';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import './styles.css';
+// src/App.jsx
+import React, { useState, useEffect, useRef } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import io from "socket.io-client";
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+import ChatWindow from "./components/ChatWindow";
+import Sidebar from "./components/Sidebar";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function ProtectedRoute({ children }) {
-  const token = localStorage.getItem('token');
-  if (!token) return <Navigate to="/login" replace />;
-  return children;
-}
+import "./styles.css";
+
+const BACKEND =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
 
 function AppShell() {
+  const navigate = useNavigate();
+
+  /* ================= THEME ================= */
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "dark";
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  /* ================= AUTH ================= */
+
   const [user, setUser] = useState(() => {
     try {
-      const s = localStorage.getItem('user');
+      const s = localStorage.getItem("user");
       return s ? JSON.parse(s) : null;
     } catch {
       return null;
     }
   });
-  const [token, setToken] = useState(() => localStorage.getItem('token') || null);
+
+  const [token, setToken] = useState(() =>
+    localStorage.getItem("token")
+  );
+
   const [sessionId, setSessionId] = useState(null);
-  const [socketReady, setSocketReady] = useState(false);
-  const [socket, setSocket] = useState(null);
-  const socketRef = useRef(null);
-  const navigate = useNavigate();
-  const [conversations, setConversations] = useState([]);
-  const [selectedConv, setSelectedConv] = useState(null);
   const [initialMessages, setInitialMessages] = useState([]);
 
-  function createSocket(currentToken) {
+  /* ================= SOCKET ================= */
+
+  const socketRef = useRef(null);
+  const autoSessionStarted = useRef(false); // 🔥 prevents duplicates
+
+  const [socket, setSocket] = useState(null);
+  const [socketReady, setSocketReady] = useState(false);
+
+  function createSocket(authToken) {
+    if (!authToken) return;
+
     if (socketRef.current) {
-      try { socketRef.current.disconnect(); } catch (e) {}
+      socketRef.current.disconnect();
       socketRef.current = null;
-      setSocketReady(false);
-      setSocket(null);
     }
 
-    const opts = { transports: ['websocket'], auth: currentToken ? { token: currentToken } : {} };
-    const s = io(BACKEND, opts);
+    const s = io(BACKEND, {
+      transports: ["websocket"],
+      auth: { token: authToken },
+    });
 
-    s.on('connect', () => {
-      console.log('socket connected', s.id);
+    s.on("connect", () => {
+      console.log("✅ Socket connected");
       setSocketReady(true);
     });
 
-    s.on('disconnect', (reason) => {
-      console.log('socket disconnected', reason);
+    s.on("disconnect", (reason) => {
+      console.warn("❌ Socket disconnected:", reason);
       setSocketReady(false);
     });
 
-    s.on('session_started', (data) => {
-      if (data?.sessionId) {
-        setSessionId(data.sessionId);
-        setSelectedConv(null);
-        setInitialMessages([]);
-        setTimeout(() => loadConversations(), 300);
-      }
+    s.on("connect_error", (err) => {
+      console.error("❌ Socket error:", err.message);
+      setSocketReady(false);
     });
 
-    s.on('conversations_updated', () => loadConversations());
+    s.on("session_started", ({ sessionId }) => {
+      setSessionId(sessionId);
+      setInitialMessages([]);
+    });
 
     socketRef.current = s;
     setSocket(s);
-    return s;
   }
 
   useEffect(() => {
-    if (token) createSocket(token);
+    if (!token) {
+      socketRef.current?.disconnect();
+      socketRef.current = null;
+      setSocket(null);
+      setSocketReady(false);
+      autoSessionStarted.current = false;
+      return;
+    }
+
+    createSocket(token);
 
     return () => {
-      if (socketRef.current) {
-        try { socketRef.current.disconnect(); } catch (e) {}
-        socketRef.current = null;
-      }
-      setSocket(null);
+      socketRef.current?.disconnect();
+      socketRef.current = null;
     };
-  }, []);
-
-  useEffect(() => {
-    if (socketRef.current) {
-      if (!token) {
-        socketRef.current.disconnect();
-        socketRef.current = null;
-        setSocket(null);
-        setSocketReady(false);
-        setSessionId(null);
-        return;
-      }
-      createSocket(token);
-    } else if (token) {
-      createSocket(token);
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  /* ================= AUTO SESSION (🔥 NEW) ================= */
+
+  useEffect(() => {
+    if (!socket || !socketReady) return;
+
+    // prevent duplicate auto sessions
+    if (autoSessionStarted.current) return;
+
+    socket.emit("start_session");
+    autoSessionStarted.current = true;
+
+    console.log("🚀 Auto session started");
+  }, [socket, socketReady]);
+
+  /* ================= AUTH ACTIONS ================= */
+
   function handleAuthSuccess(userObj, tokenString) {
-    const tk = tokenString || localStorage.getItem('token');
-    if (tk) {
-      localStorage.setItem('token', tk);
-      setToken(tk);
-    }
-    if (userObj) {
-      localStorage.setItem('user', JSON.stringify(userObj));
-      setUser(userObj);
-    }
-    if (!socketRef.current && (tk || token)) createSocket(tk || token);
-    navigate('/', { replace: true });
-    setTimeout(() => loadConversations(), 300);
+    localStorage.clear();
+    localStorage.setItem("token", tokenString);
+    localStorage.setItem("user", JSON.stringify(userObj));
+    localStorage.setItem("theme", theme);
+
+    setUser(userObj);
+    setToken(tokenString);
+
+    navigate("/", { replace: true });
   }
 
   function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    const savedTheme = localStorage.getItem("theme");
+
+    localStorage.clear();
+    if (savedTheme) localStorage.setItem("theme", savedTheme);
+
     setUser(null);
     setToken(null);
     setSessionId(null);
-    setSelectedConv(null);
     setInitialMessages([]);
-    if (socketRef.current) {
-      try { socketRef.current.disconnect(); } catch (e) {}
-      socketRef.current = null;
-    }
+
+    socketRef.current?.disconnect();
+    socketRef.current = null;
     setSocket(null);
-    navigate('/login', { replace: true });
+    setSocketReady(false);
+    autoSessionStarted.current = false;
+
+    navigate("/login", { replace: true });
   }
+
+  /* ================= CHAT ================= */
 
   function startSession() {
-    if (!socket) return alert('Socket not ready');
-    const userId = user?.id || user?._id || user?.email || `guest-${Date.now()}`;
-    socket.emit('start_session', { userId });
+    if (!socket || !socketReady) return;
+    socket.emit("start_session");
   }
 
-  async function loadConversations() {
-    try {
-      const res = await fetch(`${BACKEND.replace(/\/$/, '')}/api/conversations`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-      });
-      if (!res.ok) {
-        console.warn('Failed loading conversations', res.status);
-        setConversations([]);
-        return;
-      }
-      const data = await res.json();
-      setConversations(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.warn('loadConversations error', err);
-      setConversations([]);
-    }
-  }
-
-  async function fetchConversationMessages(convId) {
-    try {
-      const res = await fetch(`${BACKEND.replace(/\/$/, '')}/api/conversations/${convId}/messages`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-      });
-      if (!res.ok) {
-        console.warn('Failed to fetch messages for', convId, res.status);
-        return [];
-      }
-      const msgs = await res.json();
-      return (Array.isArray(msgs) ? msgs : []).map(m => ({
-        id: m._id || `${m.role}-${Date.now()}`,
-        role: m.role,
-        text: m.text,
-        meta: m.meta || {},
-        createdAt: m.createdAt || m.ts
-      }));
-    } catch (err) {
-      console.warn('fetchConversationMessages error', err);
-      return [];
-    }
-  }
-
-  async function handleSelectConversation(conv) {
-    if (!conv || !conv.id) return;
-    setSelectedConv(conv);
-    setSessionId(conv.id);
-    const msgs = await fetchConversationMessages(conv.id);
-    setInitialMessages(msgs);
-  }
-
-  async function handleNewChat() {
-    startSession();
-    setTimeout(() => loadConversations(), 500);
-  }
-
-  useEffect(() => {
-    loadConversations();
-    const id = setInterval(() => loadConversations(), 8000);
-    if (socket) {
-      socket.on('bot_message', loadConversations);
-      socket.on('connect', loadConversations);
-    }
-
-    return () => {
-      clearInterval(id);
-      if (socket) {
-        socket.off('bot_message', loadConversations);
-        socket.off('connect', loadConversations);
-      }
-    };
-  }, [socket, token]);
+  /* ================= UI ================= */
 
   return (
-    <div className="app" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <header className="app-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div
+      className="app"
+      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+    >
+      {/* HEADER */}
+      <header className="app-header">
         <div>
-          <h1 style={{ margin: 0 }}>Realtime Chatbot — Grammar + Mood</h1>
-          <p className="subtitle" style={{ margin: '6px 0 0' }}>
-            {user ? `Signed in as ${user.name || user.email}` : 'Please login'}
+          <h1>Realtime Chatbot — Grammar + Mood</h1>
+          <p className="subtitle">
+            {user
+              ? `Signed in as ${user.name || user.email}`
+              : "Please login"}
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <div style={{ fontSize: 13, color: '#6b7280' }}>{socketReady ? '🟢 Connected' : '🔴 Disconnected'}</div>
-          {user && <button onClick={() => startSession()} style={{ padding: '8px 10px', borderRadius: 8, cursor: 'pointer' }}>Start Session</button>}
-          {user ? <button onClick={() => logout()} style={{ padding: '8px 10px', borderRadius: 8, cursor: 'pointer', background: '#ef4444', color: '#fff', border: 'none' }}>Logout</button> : null}
+        <div className="header-actions">
+          {/* 🌗 THEME TOGGLE */}
+          <button
+            className="theme-toggle"
+            onClick={() =>
+              setTheme(theme === "dark" ? "light" : "dark")
+            }
+            title="Toggle theme"
+          >
+            {theme === "dark" ? "🌙" : "☀️"}
+          </button>
+
+          {user && (
+            <>
+              <span className="connection-status">
+                <span
+                  className={socketReady ? "dot green" : "dot red"}
+                />
+                {socketReady ? "Connected" : "Disconnected"}
+              </span>
+
+              <button
+                className="header-btn start"
+                onClick={startSession}
+                disabled={!socketReady}
+              >
+                ▶ Start Session
+              </button>
+
+              <button
+                className="header-btn logout"
+                onClick={logout}
+              >
+                ⏻ Logout
+              </button>
+            </>
+          )}
         </div>
       </header>
 
-      <main style={{ display: 'flex', gap: 18, padding: '18px' }}>
-        <div style={{ width: 300 }}>
-          <Sidebar
-            socket={socket}
-            sessionId={sessionId}
-            onStartSession={handleNewChat}
-            onSelectConversation={handleSelectConversation}
-          />
-        </div>
+      {/* ROUTES */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <div style={{ display: "flex", padding: 18, gap: 18 }}>
+                <Sidebar
+                  socket={socket}
+                  sessionId={sessionId}
+                  onStartSession={startSession}
+                  onSelectConversation={(conv) =>
+                    setSessionId(conv.id)
+                  }
+                />
 
-        <div style={{ flex: 1 }}>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <ChatWindow
-                    socket={socket}
-                    sessionId={sessionId}
-                    onStartSession={() => startSession()}
-                    initialMessages={initialMessages}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/login" element={<Login onAuthSuccess={handleAuthSuccess} />} />
-            <Route path="/signup" element={<Signup onAuthSuccess={handleAuthSuccess} />} />
-          </Routes>
-        </div>
-      </main>
+                <ChatWindow
+                  socket={socket}
+                  sessionId={sessionId}
+                  onStartSession={startSession}
+                  initialMessages={initialMessages}
+                />
+              </div>
+            </ProtectedRoute>
+          }
+        />
 
-      <footer className="app-footer" style={{ textAlign: 'center', padding: 12 }}>
+        <Route
+          path="/login"
+          element={<Login onAuthSuccess={handleAuthSuccess} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup onAuthSuccess={handleAuthSuccess} />}
+        />
+      </Routes>
+
+      <footer className="app-footer">
         <small>Backend: {BACKEND}</small>
       </footer>
     </div>

@@ -4,7 +4,7 @@ import { fetchTasks, createTask, updateTask, deleteTask } from "../features/task
 import { useForm } from "react-hook-form";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import toast, { Toaster } from "react-hot-toast";
-
+import ConfirmModal from "../components/ConfirmModal";
 export default function Tasks() {
   const dispatch = useDispatch();
   const tasksFromStore = useSelector((s) => s.tasks.items || []);
@@ -12,7 +12,8 @@ export default function Tasks() {
   const [editingTask, setEditingTask] = useState(null);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-
+  const [taskData,SetTaskData]=useState("");
+  const [showModal,setShowModal]=useState(false);
   const [query, setQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [sortBy, setSortBy] = useState("createdAt");
@@ -39,7 +40,6 @@ export default function Tasks() {
     });
     setTasks(arranged);
   }, [tasksFromStore]);
-
   const visible = useMemo(() => {
     let list = tasks;
 
@@ -68,6 +68,12 @@ export default function Tasks() {
 
     return list;
   }, [tasks, query, filterStatus, sortBy, sortDir]);
+  const handleCreateClick=()=>{
+    setShowModal(true);
+  };
+  const handleConfirmCreate=()=>{
+    setShowModal(false);
+  }
 
   const onCreate = async (data) => {
     try {
@@ -82,6 +88,7 @@ export default function Tasks() {
       setSubmitting(false);
     }
   };
+  
 
   const openEdit = (task) => {
     setEditingTask(task);
@@ -238,9 +245,15 @@ export default function Tasks() {
                 type="submit"
                 disabled={submitting}
                 className="ml-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg disabled:opacity-60 focus:ring-2 focus:ring-indigo-300"
+              onClick={handleCreateClick}
               >
                 {submitting ? "Creating..." : "Create"}
               </button>
+              <ConfirmModal
+              show={showModal}
+              onClose={()=>setShowModal(false)}
+              onConfirm={handleConfirmCreate}
+              />
             </div>
           </form>
         </div>
